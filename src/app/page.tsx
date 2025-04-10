@@ -25,13 +25,13 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <header className="absolute top-0 left-0 w-full z-10 py-4">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 flex justify-center md:justify-start">
           <Image src={logo} alt="Logo" className="h-20 w-auto" priority />
         </div>
       </header>
       {/* Hero Section */}
       <section className="relative gradient-bg py-24">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40')] bg-cover bg-center opacity-5"></div>
+        <div className="absolute inset-0 bg-[url('../assets/hero-bg.webp')] bg-cover bg-center opacity-5"></div>
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-white p-10">
@@ -104,7 +104,7 @@ export default function Home() {
 
       {/* Services Section */}
       <section className="py-24 gradient-bg relative">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab')] bg-cover bg-center opacity-5"></div>
+        <div className="absolute inset-0 bg-[url('../assets/services-bg.webp')] bg-cover bg-center opacity-5"></div>
         <div className="container mx-auto px-4 relative">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-[#c6a355]">
             Nossos Serviços
@@ -190,9 +190,9 @@ export default function Home() {
       </section>
       <footer className="bg-slate-900 text-zinc-300 py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
             {/* Coluna 1 - Sobre */}
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <h4 className="text-[#c6a355] font-semibold text-lg mb-4">
                 Sobre Nós
               </h4>
@@ -203,7 +203,7 @@ export default function Home() {
             </div>
 
             {/* Coluna 2 - Links Rápidos */}
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <h4 className="text-[#c6a355] font-semibold text-lg mb-4">
                 Links Rápidos
               </h4>
@@ -244,7 +244,7 @@ export default function Home() {
             </div>
 
             {/* Coluna 3 - Contato */}
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <h4 className="text-[#c6a355] font-semibold text-lg mb-4">
                 Contato
               </h4>
@@ -257,7 +257,7 @@ export default function Home() {
             </div>
 
             {/* Coluna 4 - Redes Sociais */}
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <h4 className="text-[#c6a355] font-semibold text-lg mb-4">
                 Redes Sociais
               </h4>

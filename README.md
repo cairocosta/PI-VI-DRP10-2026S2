@@ -34,17 +34,25 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 │   │   ├── globals.css   # Estilos globais da aplicação
 │   │   ├── icon.svg      # Ícone do site
 │   │   ├── layout.tsx    # Layout principal da aplicação
-│   │   └── page.tsx      # Página inicial do site
+│   │   ├── page.tsx      # Página inicial do site
 │   │   └── page/         # Outras páginas do site
 │   ├── assets/           # Arquivos estáticos (imagens, SVGs)
 │   │   ├── logo.svg      # Logo da empresa
+│   │   ├── hero-bg.webp  # Imagem de fundo do hero
+│   │   ├── services-bg.webp # Imagem de fundo dos serviços
 │   │   └── noise.svg     # Textura de fundo
 │   ├── components/       # Componentes reutilizáveis
 │   │   └── ui/           # Componentes de interface do usuário
+│   │       ├── button.tsx # Componente de botão
+│   │       ├── card.tsx  # Componente de card
+│   │       ├── contact-form.tsx # Formulário de contato
+│   │       └── modal.tsx # Componente de modal
 │   ├── hooks/            # Hooks personalizados
 │   │   └── use-toast.tsx # Hook para gerenciar toasts
-│   └── lib/              # Utilitários e funções auxiliares
-│       └── utils.ts      # Funções utilitárias
+│   ├── lib/              # Utilitários e funções auxiliares
+│   │   └── utils.ts      # Funções utilitárias
+│   └── scripts/          # Scripts utilitários
+│       └── convert-image.js # Script para conversão de imagens
 ├── docker-compose.yml    # Configuração do Docker para PostgreSQL
 ├── components.json       # Configuração do Shadcn UI
 ├── next.config.ts        # Configuração do Next.js
@@ -111,7 +119,7 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 
    O site estará disponível em [http://localhost:3000](http://localhost:3000).
 
-## 🚀 Comandos Disponíveis
+## 📝 Comandos Disponíveis
 
 - **Desenvolvimento:**
 
@@ -150,10 +158,11 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
   npx prisma studio
   ```
 
-## 🌐 Funcionalidades Principais
+## 🌐 Funcionalidades Implementadas
 
 - **Página Inicial:** Apresentação da empresa e seus serviços de consultoria tributária
-- **Seção de Benefícios:** Destaque para os principais benefícios oferecidos
+- **Seção de Benefícios:** Destaque para os principais benefícios oferecidos (Redução de Impostos, Prevenção de Riscos, Gestão Financeira)
+- **Seção de Serviços:** Apresentação dos serviços oferecidos (Planejamento Tributário, Consultoria Fiscal, Recuperação de Impostos, Compliance Fiscal)
 - **Formulário de Contato:** Modal para que potenciais clientes possam entrar em contato
 - **Design Responsivo:** Interface adaptável para dispositivos móveis e desktop
 - **Integração com Banco de Dados:** Armazenamento de dados de contato no PostgreSQL via Prisma ORM
@@ -176,6 +185,6 @@ Os componentes de interface do usuário estão localizados em `src/components/ui
 
 O schema do banco de dados está definido em `prisma/schema.prisma`. Para adicionar novos modelos ou modificar os existentes, edite este arquivo e execute as migrações do Prisma.
 
-## 📝 Licença
+## 📄 Licença
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
