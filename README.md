@@ -179,17 +179,3 @@ O schema do banco de dados está definido em `prisma/schema.prisma`. Para adicio
 ## 📝 Licença
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
-
-## 👥 Contribuição
-
-Contribuições são bem-vindas! Para contribuir:
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Faça commit das suas alterações (`git commit -m 'Adiciona nova feature'`)
-4. Faça push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
-
-## 📞 Contato
-
-Para mais informações sobre o projeto, entre em contato através do formulário no site ou pelos canais disponíveis na página de contato.
