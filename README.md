@@ -4,54 +4,54 @@
 
 ## 📋 Sobre o Projeto
 
-Este é um site moderno para uma consultoria tributária especializada, desenvolvido com Next.js e Tailwind CSS. O projeto oferece uma interface elegante e responsiva, com foco em apresentar os serviços de consultoria tributária e facilitar o contato com potenciais clientes.
+Este é um site moderno para uma consultoria tributária especializada, desenvolvido com Next.js 15 e Tailwind CSS 4. O projeto oferece uma interface elegante e responsiva, com foco em apresentar os serviços de consultoria tributária e facilitar o contato com potenciais clientes através de um formulário integrado com banco de dados PostgreSQL.
 
 ## 🚀 Tecnologias Utilizadas
 
-- **Frontend:**
+### Frontend
 
-  - [Next.js 15](https://nextjs.org/) - Framework React com renderização do lado do servidor
-  - [React 19](https://react.dev/) - Biblioteca JavaScript para construção de interfaces
-  - [TypeScript](https://www.typescriptlang.org/) - Superset tipado de JavaScript
-  - [Tailwind CSS 4](https://tailwindcss.com/) - Framework CSS utilitário
-  - [Shadcn UI](https://ui.shadcn.com/) - Componentes de UI reutilizáveis
-  - [Lucide React](https://lucide.dev/) - Biblioteca de ícones
+- [Next.js 15](https://nextjs.org/) - Framework React com renderização do lado do servidor
+- [React 19](https://react.dev/) - Biblioteca JavaScript para construção de interfaces
+- [TypeScript](https://www.typescriptlang.org/) - Superset tipado de JavaScript
+- [Tailwind CSS 4](https://tailwindcss.com/) - Framework CSS utilitário
+- [Shadcn UI](https://ui.shadcn.com/) - Componentes de UI reutilizáveis
+- [Lucide React](https://lucide.dev/) - Biblioteca de ícones
+- [Sonner](https://sonner.emilkowal.ski/) - Biblioteca de notificações toast
 
-- **Backend:**
-  - [PostgreSQL](https://www.postgresql.org/) - Banco de dados relacional
-  - [Docker](https://www.docker.com/) - Containerização para o banco de dados
+### Backend
+
+- [PostgreSQL](https://www.postgresql.org/) - Banco de dados relacional
+- [Prisma ORM](https://www.prisma.io/) - ORM para acesso ao banco de dados
+- [Docker](https://www.docker.com/) - Containerização para o banco de dados
 
 ## 🗂️ Estrutura do Projeto
 
 ```
+├── prisma/                # Configuração do Prisma ORM
+│   └── schema.prisma     # Schema do banco de dados
 ├── src/
-│   ├── app/                  # Diretório principal do Next.js App Router
-│   │   ├── globals.css       # Estilos globais da aplicação
-│   │   ├── icon.svg          # Ícone do site
-│   │   ├── layout.tsx        # Layout principal da aplicação
-│   │   └── page.tsx          # Página inicial do site
-│   ├── assets/               # Arquivos estáticos (imagens, SVGs)
-│   │   ├── logo.svg          # Logo da empresa
-│   │   └── noise.svg         # Textura de fundo
-│   ├── components/           # Componentes reutilizáveis
-│   │   └── ui/               # Componentes de interface do usuário
-│   │       ├── button.tsx    # Componente de botão
-│   │       ├── card.tsx      # Componente de card
-│   │       ├── contact-form.tsx # Formulário de contato
-│   │       ├── modal.tsx     # Componente de modal/dialog
-│   │       ├── toast.tsx     # Componente de notificação toast
-│   │       └── toaster.tsx   # Gerenciador de toasts
-│   ├── hooks/                # Hooks personalizados
-│   │   └── use-toast.tsx     # Hook para gerenciar toasts
-│   └── lib/                  # Utilitários e funções auxiliares
-│       └── utils.ts          # Funções utilitárias
-├── docker-compose.yml        # Configuração do Docker para PostgreSQL
-├── components.json           # Configuração do Shadcn UI
-├── next.config.ts           # Configuração do Next.js
-├── package.json             # Dependências e scripts do projeto
-├── postcss.config.mjs       # Configuração do PostCSS
-├── tailwind.config.js       # Configuração do Tailwind CSS
-└── tsconfig.json            # Configuração do TypeScript
+│   ├── app/              # Diretório principal do Next.js App Router
+│   │   ├── globals.css   # Estilos globais da aplicação
+│   │   ├── icon.svg      # Ícone do site
+│   │   ├── layout.tsx    # Layout principal da aplicação
+│   │   └── page.tsx      # Página inicial do site
+│   │   └── page/         # Outras páginas do site
+│   ├── assets/           # Arquivos estáticos (imagens, SVGs)
+│   │   ├── logo.svg      # Logo da empresa
+│   │   └── noise.svg     # Textura de fundo
+│   ├── components/       # Componentes reutilizáveis
+│   │   └── ui/           # Componentes de interface do usuário
+│   ├── hooks/            # Hooks personalizados
+│   │   └── use-toast.tsx # Hook para gerenciar toasts
+│   └── lib/              # Utilitários e funções auxiliares
+│       └── utils.ts      # Funções utilitárias
+├── docker-compose.yml    # Configuração do Docker para PostgreSQL
+├── components.json       # Configuração do Shadcn UI
+├── next.config.ts        # Configuração do Next.js
+├── package.json          # Dependências e scripts do projeto
+├── postcss.config.mjs    # Configuração do PostCSS
+├── tailwind.config.js    # Configuração do Tailwind CSS
+└── tsconfig.json         # Configuração do TypeScript
 ```
 
 ## 🛠️ Instalação e Configuração
@@ -77,7 +77,15 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
    pnpm install
    ```
 
-3. **Inicie o banco de dados PostgreSQL com Docker:**
+3. **Configure o banco de dados:**
+
+   Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
+   ```
+   DATABASE_URL="postgresql://postgres:postgres@localhost:5433/drp10_pji310_a2025s1_t001?schema=public"
+   ```
+
+4. **Inicie o banco de dados PostgreSQL com Docker:**
 
    ```bash
    docker-compose up -d
@@ -89,7 +97,13 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
    - **Senha:** postgres
    - **Banco de dados:** drp10_pji310_a2025s1_t001
 
-4. **Execute o projeto em modo de desenvolvimento:**
+5. **Execute as migrações do Prisma:**
+
+   ```bash
+   npx prisma migrate dev
+   ```
+
+6. **Execute o projeto em modo de desenvolvimento:**
 
    ```bash
    pnpm dev
@@ -118,8 +132,22 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
   ```
 
 - **Verificar código com ESLint:**
+
   ```bash
   pnpm lint
+  ```
+
+- **Gerenciar banco de dados:**
+
+  ```bash
+  # Gerar cliente Prisma
+  npx prisma generate
+
+  # Aplicar migrações
+  npx prisma migrate dev
+
+  # Visualizar banco de dados
+  npx prisma studio
   ```
 
 ## 🌐 Funcionalidades Principais
@@ -128,7 +156,7 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 - **Seção de Benefícios:** Destaque para os principais benefícios oferecidos
 - **Formulário de Contato:** Modal para que potenciais clientes possam entrar em contato
 - **Design Responsivo:** Interface adaptável para dispositivos móveis e desktop
-- **Integração com Banco de Dados:** Armazenamento de dados de contato no PostgreSQL
+- **Integração com Banco de Dados:** Armazenamento de dados de contato no PostgreSQL via Prisma ORM
 
 ## 🔧 Personalização
 
@@ -143,6 +171,10 @@ O projeto utiliza Tailwind CSS para estilização. As principais configurações
 ### Componentes UI
 
 Os componentes de interface do usuário estão localizados em `src/components/ui/`. Eles são baseados na biblioteca Shadcn UI, que fornece componentes acessíveis e personalizáveis.
+
+### Banco de Dados
+
+O schema do banco de dados está definido em `prisma/schema.prisma`. Para adicionar novos modelos ou modificar os existentes, edite este arquivo e execute as migrações do Prisma.
 
 ## 📝 Licença
 
