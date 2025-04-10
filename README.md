@@ -67,8 +67,8 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 1. **Clone o repositório:**
 
    ```bash
-   git clone [URL_DO_REPOSITÓRIO]
-   cd site
+   git clone https://github.com/luisotaviopilotto/DRP10-PJI310-A2025S1-T001.git
+   cd DRP10-PJI310-A2025S1-T001
    ```
 
 2. **Instale as dependências:**
