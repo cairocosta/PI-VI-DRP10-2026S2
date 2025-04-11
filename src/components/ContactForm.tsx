@@ -1,8 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "./button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./card";
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
