@@ -35,7 +35,6 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 │   │   ├── icon.svg      # Ícone do site
 │   │   ├── layout.tsx    # Layout principal da aplicação
 │   │   ├── page.tsx      # Página inicial do site
-│   │   └── page/         # Outras páginas do site
 │   ├── assets/           # Arquivos estáticos (imagens, SVGs)
 │   │   ├── logo.svg      # Logo da empresa
 │   │   ├── hero-bg.webp  # Imagem de fundo do hero
