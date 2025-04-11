@@ -10,18 +10,18 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 
 ### Frontend
 
-- [Next.js 15](https://nextjs.org/) - Framework React com renderização do lado do servidor
-- [React 19](https://react.dev/) - Biblioteca JavaScript para construção de interfaces
-- [TypeScript](https://www.typescriptlang.org/) - Superset tipado de JavaScript
-- [Tailwind CSS 4](https://tailwindcss.com/) - Framework CSS utilitário
-- [Shadcn UI](https://ui.shadcn.com/) - Componentes de UI reutilizáveis
-- [Lucide React](https://lucide.dev/) - Biblioteca de ícones
-- [Sonner](https://sonner.emilkowal.ski/) - Biblioteca de notificações toast
+- [Next.js 15](https://nextjs.org/) - Framework React com renderização do lado do servidor (versão 15.2.4)
+- [React 19](https://react.dev/) - Biblioteca JavaScript para construção de interfaces (versão 19.0.0)
+- [TypeScript](https://www.typescriptlang.org/) - Superset tipado de JavaScript (versão 5)
+- [Tailwind CSS 4](https://tailwindcss.com/) - Framework CSS utilitário (versão 4)
+- [Radix UI](https://www.radix-ui.com/) - Componentes de UI acessíveis e sem estilo
+- [Lucide React](https://lucide.dev/) - Biblioteca de ícones (versão 0.487.0)
+- [Sonner](https://sonner.emilkowal.ski/) - Biblioteca de notificações toast (versão 2.0.3)
 
 ### Backend
 
 - [PostgreSQL](https://www.postgresql.org/) - Banco de dados relacional
-- [Prisma ORM](https://www.prisma.io/) - ORM para acesso ao banco de dados
+- [Prisma ORM](https://www.prisma.io/) - ORM para acesso ao banco de dados (versão 6.6.0)
 - [Docker](https://www.docker.com/) - Containerização para o banco de dados
 
 ## 🗂️ Estrutura do Projeto
@@ -42,11 +42,21 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 │   │   ├── services-bg.webp # Imagem de fundo dos serviços
 │   │   └── noise.svg     # Textura de fundo
 │   ├── components/       # Componentes reutilizáveis
+│   │   ├── Benefits.tsx  # Componente de benefícios
+│   │   ├── ContactForm.tsx # Formulário de contato
+│   │   ├── Cta.tsx       # Componente de chamada para ação
+│   │   ├── Footer.tsx    # Componente de rodapé
+│   │   ├── Header.tsx    # Componente de cabeçalho
+│   │   ├── Hero.tsx      # Componente de hero
+│   │   ├── Services.tsx  # Componente de serviços
 │   │   └── ui/           # Componentes de interface do usuário
 │   │       ├── button.tsx # Componente de botão
 │   │       ├── card.tsx  # Componente de card
-│   │       ├── contact-form.tsx # Formulário de contato
-│   │       └── modal.tsx # Componente de modal
+│   │       ├── dialog.tsx # Componente de diálogo
+│   │       ├── modal.tsx # Componente de modal
+│   │       ├── sonner.tsx # Componente de notificação sonner
+│   │       ├── toast.tsx # Componente de toast
+│   │       └── toaster.tsx # Componente de toaster
 │   ├── hooks/            # Hooks personalizados
 │   │   └── use-toast.tsx # Hook para gerenciar toasts
 │   ├── lib/              # Utilitários e funções auxiliares
@@ -96,7 +106,7 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 4. **Inicie o banco de dados PostgreSQL com Docker:**
 
    ```bash
-   docker-compose up -d
+   docker-compose up
    ```
 
    Isso iniciará um container PostgreSQL na porta 5433 com as seguintes credenciais:
@@ -108,7 +118,7 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 5. **Execute as migrações do Prisma:**
 
    ```bash
-   npx prisma migrate dev
+   pnpx prisma migrate dev
    ```
 
 6. **Execute o projeto em modo de desenvolvimento:**
@@ -149,13 +159,13 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 
   ```bash
   # Gerar cliente Prisma
-  npx prisma generate
+  pnpx prisma generate
 
   # Aplicar migrações
-  npx prisma migrate dev
+  pnpx prisma migrate dev
 
   # Visualizar banco de dados
-  npx prisma studio
+  pnpx prisma studio
   ```
 
 ## 🌐 Funcionalidades Implementadas
@@ -163,9 +173,9 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 - **Página Inicial:** Apresentação da empresa e seus serviços de consultoria tributária
 - **Seção de Benefícios:** Destaque para os principais benefícios oferecidos (Redução de Impostos, Prevenção de Riscos, Gestão Financeira)
 - **Seção de Serviços:** Apresentação dos serviços oferecidos (Planejamento Tributário, Consultoria Fiscal, Recuperação de Impostos, Compliance Fiscal)
-- **Formulário de Contato:** Modal para que potenciais clientes possam entrar em contato
+- **Formulário de Contato:** Interface para que potenciais clientes possam entrar em contato
 - **Design Responsivo:** Interface adaptável para dispositivos móveis e desktop
-- **Integração com Banco de Dados:** Armazenamento de dados de contato no PostgreSQL via Prisma ORM
+- **Componentes Reutilizáveis:** Utilização de componentes modulares para facilitar a manutenção
 
 ## 🔧 Personalização
 
@@ -174,16 +184,15 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 O projeto utiliza Tailwind CSS para estilização. As principais configurações de estilo podem ser encontradas em:
 
 - `src/app/globals.css` - Estilos globais e variáveis CSS
-- `tailwind.config.js` - Configuração do Tailwind CSS
-- `components.json` - Configuração do Shadcn UI
+- `components.json` - Configuração dos componentes UI
 
 ### Componentes UI
 
-Os componentes de interface do usuário estão localizados em `src/components/ui/`. Eles são baseados na biblioteca Shadcn UI, que fornece componentes acessíveis e personalizáveis.
+Os componentes de interface do usuário estão localizados em `src/components/ui/`. Eles são baseados em componentes do Radix UI, que fornece componentes acessíveis e personalizáveis. Os componentes principais da aplicação estão em `src/components/`.
 
 ### Banco de Dados
 
-O schema do banco de dados está definido em `prisma/schema.prisma`. Para adicionar novos modelos ou modificar os existentes, edite este arquivo e execute as migrações do Prisma.
+O schema do banco de dados está definido em `prisma/schema.prisma`. O projeto está configurado para usar PostgreSQL via Docker, mas o schema ainda não contém modelos definidos. Para adicionar novos modelos, edite este arquivo e execute as migrações do Prisma.
 
 ## 📄 Licença
 
