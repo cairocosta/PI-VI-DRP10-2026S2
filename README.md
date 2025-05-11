@@ -48,6 +48,7 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 │   │   ├── Header.tsx    # Componente de cabeçalho
 │   │   ├── Hero.tsx      # Componente de hero
 │   │   ├── Services.tsx  # Componente de serviços
+│   │   ├── Testimonial.tsx # Componente de depoimentos
 │   │   └── ui/           # Componentes de interface do usuário
 │   │       ├── button.tsx # Componente de botão
 │   │       ├── card.tsx  # Componente de card
@@ -172,6 +173,7 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 - **Página Inicial:** Apresentação da empresa e seus serviços de consultoria tributária
 - **Seção de Benefícios:** Destaque para os principais benefícios oferecidos (Redução de Impostos, Prevenção de Riscos, Gestão Financeira)
 - **Seção de Serviços:** Apresentação dos serviços oferecidos (Planejamento Tributário, Consultoria Fiscal, Recuperação de Impostos, Compliance Fiscal)
+- **Seção de Depoimentos:** Exibição de depoimentos de clientes satisfeitos
 - **Formulário de Contato:** Interface para que potenciais clientes possam entrar em contato
 - **Design Responsivo:** Interface adaptável para dispositivos móveis e desktop
 - **Componentes Reutilizáveis:** Utilização de componentes modulares para facilitar a manutenção
