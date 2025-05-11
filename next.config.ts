@@ -1,9 +1,19 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  devIndicators: false,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    domains: ["randomuser.me"],
+    domains: ["randomuser.me", "picsum.photos"], // Vercel exige essa lista
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "randomuser.me",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        pathname: "**",
+      },
+    ],
   },
 };
 

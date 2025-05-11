@@ -162,6 +162,7 @@ export function Testimonial() {
                     className="w-full h-full object-cover"
                     width={80}
                     height={80}
+                    unoptimized
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-zinc-800">
