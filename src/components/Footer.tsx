@@ -61,10 +61,10 @@ export const Footer = () => {
               Contato
             </h4>
             <ul className="space-y-2">
-              <li>+55 (11) 1234-5678</li>
-              <li>contato@empresa.com.br</li>
-              <li>Av. Paulista, 1000</li>
-              <li>São Paulo - SP</li>
+              <li>+55 (16) 98123-7871</li>
+              <li>denisgoncalves2008@hotmail.com</li>
+              {/* <li>Av. Paulista, 1000</li> */}
+              <li>Morro Agudo - SP</li>
             </ul>
           </div>
 
