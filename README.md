@@ -23,6 +23,7 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 - [PostgreSQL](https://www.postgresql.org/) - Banco de dados relacional
 - [Prisma ORM](https://www.prisma.io/) - ORM para acesso ao banco de dados (versão 6.6.0)
 - [Docker](https://www.docker.com/) - Containerização para o banco de dados
+- [Nodemailer](https://nodemailer.com/) - Biblioteca para envio de emails (versão 7.0.3)
 
 ## 🗂️ Estrutura do Projeto
 
@@ -95,13 +96,23 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
    pnpm install
    ```
 
-3. **Configure o banco de dados:**
+3. **Configure as variáveis de ambiente:**
 
    Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
    ```
+   # Banco de dados
    DATABASE_URL="postgresql://postgres:postgres@localhost:5433/drp10_pji310_a2025s1_t001?schema=public"
+
+   # Configuração do Gmail
+   GMAIL_USER="seu-email@gmail.com"
+   GMAIL_PASS="sua-senha-de-app"
    ```
+
+   Para configurar o envio de emails:
+   1. Ative a autenticação de duas etapas na sua conta Google
+   2. Gere uma senha de aplicativo em Configurações > Segurança > Senhas de app
+   3. Use essa senha gerada como GMAIL_PASS
 
 4. **Inicie o banco de dados PostgreSQL com Docker:**
 
@@ -175,6 +186,10 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 - **Seção de Serviços:** Apresentação dos serviços oferecidos (Planejamento Tributário, Consultoria Fiscal, Recuperação de Impostos, Compliance Fiscal)
 - **Seção de Depoimentos:** Exibição de depoimentos de clientes satisfeitos
 - **Formulário de Contato:** Interface para que potenciais clientes possam entrar em contato
+- **Sistema de Email Duplo:**
+  - Email de notificação para a empresa com os dados do contato
+  - Email de confirmação automático para o cliente
+  - Templates de email personalizados e responsivos
 - **Design Responsivo:** Interface adaptável para dispositivos móveis e desktop
 - **Componentes Reutilizáveis:** Utilização de componentes modulares para facilitar a manutenção
 
