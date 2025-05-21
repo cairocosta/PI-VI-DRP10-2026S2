@@ -2,9 +2,9 @@ export const systemConfigs = {
   about: {
     title: "Sobre a DLG Consultoria Tributária",
     description:
-      "Somos especialistas em Recuperação de Créditos Tributários, com uma abordagem prática e focada em resultados.",
+      "Na DLG Consultoria Tributária, sou especialista em Recuperação de Créditos Tributários. Com base em dados, legislação e experiência prática, entrego soluções sob medida que transformam tributos esquecidos em recursos disponíveis para o seu caixa.",
     additionalInfo:
-      "Nossa pós-graduação na área garante conhecimento atualizado para oferecer o melhor atendimento e soluções eficientes para seu negócio.",
+      "Meu foco é sempre em resultados reais. E quando o desafio exige uma abordagem mais ampla, conto com especialistas de confiança, que compartilham do mesmo padrão de excelência, para garantir uma entrega técnica ainda mais completa.",
   },
   taxRegimes: {
     title: "Trabalhamos com os Três Regimes Tributários",
