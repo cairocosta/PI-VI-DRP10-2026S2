@@ -7,6 +7,7 @@ import { Cta } from "@/components/Cta";
 import { About } from "@/components/About";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+// import { Testimonial } from "@/components/Testimonial";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <TaxRegimes />
       <Cta />
       <About />
+      {/* <Testimonial /> */}
       <Footer />
       <WhatsAppButton />
     </main>
