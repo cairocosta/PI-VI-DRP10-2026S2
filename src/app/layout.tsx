@@ -12,7 +12,7 @@ export const metadata: Metadata = {
       "Somos uma consultoria especializada em soluções tributárias para empresas de todos os portes. Com anos de experiência no mercado, oferecemos serviços personalizados e eficientes para ajudar nossos clientes a alcançar seus objetivos tributários.",
     images: [
       {
-        url: "/src/assets/og-image.svg",
+        url: "/og-image.svg",
         width: 630,
         height: 630,
         alt: "DLG Consultoria Tributária",
