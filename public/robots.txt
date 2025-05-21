@@ -1,2 +1,2 @@
 User-agent: *
-Allow: /og-image.svg
+Allow: /og-image.png
