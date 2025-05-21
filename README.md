@@ -1,6 +1,6 @@
 # DLG | Consultoria Tributária
 
-![Logo DLG](./src/assets/logo.svg)
+![Logo DLG](./src/assets/logo-git.svg)
 
 ## 📋 Sobre o Projeto
 
