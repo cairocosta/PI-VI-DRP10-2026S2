@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/src/assets/og-image.svg",
-        width: 1200,
+        width: 630,
         height: 630,
         alt: "DLG Consultoria Tributária",
       },
