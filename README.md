@@ -32,6 +32,8 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 │   └── schema.prisma     # Schema do banco de dados
 ├── src/
 │   ├── app/              # Diretório principal do Next.js App Router
+│   │   ├── api/          # Rotas da API
+│   │   │   └── send-email/ # Endpoint para envio de emails
 │   │   ├── globals.css   # Estilos globais da aplicação
 │   │   ├── icon.svg      # Ícone do site
 │   │   ├── layout.tsx    # Layout principal da aplicação
@@ -42,6 +44,7 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 │   │   ├── services-bg.webp # Imagem de fundo dos serviços
 │   │   └── noise.svg     # Textura de fundo
 │   ├── components/       # Componentes reutilizáveis
+│   │   ├── About.tsx     # Componente sobre a empresa
 │   │   ├── Benefits.tsx  # Componente de benefícios
 │   │   ├── ContactForm.tsx # Formulário de contato
 │   │   ├── Cta.tsx       # Componente de chamada para ação
@@ -49,7 +52,8 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 │   │   ├── Header.tsx    # Componente de cabeçalho
 │   │   ├── Hero.tsx      # Componente de hero
 │   │   ├── Services.tsx  # Componente de serviços
-│   │   ├── Testimonial.tsx # Componente de depoimentos
+│   │   ├── TaxRegimes.tsx # Componente de regimes tributários
+│   │   ├── WhatsAppButton.tsx # Botão flutuante do WhatsApp
 │   │   └── ui/           # Componentes de interface do usuário
 │   │       ├── button.tsx # Componente de botão
 │   │       ├── card.tsx  # Componente de card
@@ -110,6 +114,7 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
    ```
 
    Para configurar o envio de emails:
+
    1. Ative a autenticação de duas etapas na sua conta Google
    2. Gere uma senha de aplicativo em Configurações > Segurança > Senhas de app
    3. Use essa senha gerada como GMAIL_PASS
@@ -182,18 +187,20 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 ## 🌐 Funcionalidades Implementadas
 
 - **Página Inicial:** Apresentação da empresa e seus serviços de consultoria tributária
+- **Seção Sobre:** Informações detalhadas sobre a empresa e sua missão
 - **Seção de Benefícios:** Destaque para os principais benefícios oferecidos (Redução de Impostos, Prevenção de Riscos, Gestão Financeira)
 - **Seção de Serviços:** Apresentação dos serviços oferecidos (Planejamento Tributário, Consultoria Fiscal, Recuperação de Impostos, Compliance Fiscal)
-- **Seção de Depoimentos:** Exibição de depoimentos de clientes satisfeitos
+- **Seção de Regimes Tributários:** Explicação sobre os diferentes regimes tributários disponíveis
 - **Formulário de Contato:** Interface para que potenciais clientes possam entrar em contato
 - **Sistema de Email Duplo:**
   - Email de notificação para a empresa com os dados do contato
   - Email de confirmação automático para o cliente
   - Templates de email personalizados e responsivos
+- **Botão WhatsApp Flutuante:** Acesso rápido para contato via WhatsApp
 - **Design Responsivo:** Interface adaptável para dispositivos móveis e desktop
 - **Componentes Reutilizáveis:** Utilização de componentes modulares para facilitar a manutenção
 
-## 🔧 Personalização
+## � Personalização
 
 ### Estilos e Temas
 
@@ -209,6 +216,57 @@ Os componentes de interface do usuário estão localizados em `src/components/ui
 ### Banco de Dados
 
 O schema do banco de dados está definido em `prisma/schema.prisma`. O projeto está configurado para usar PostgreSQL via Docker, mas o schema ainda não contém modelos definidos. Para adicionar novos modelos, edite este arquivo e execute as migrações do Prisma.
+
+## ⚙️ Configurações do Sistema
+
+O arquivo `src/config/configs.ts` contém as configurações principais do sistema, organizadas em diferentes seções:
+
+### Sobre a Empresa
+
+- **about**: Título, descrição e informações adicionais sobre a empresa
+- **company**: Dados da empresa como nome, descrição, endereço e localização
+- **contact**: Informações de contato (telefone e email)
+- **social**: Links para redes sociais (WhatsApp, LinkedIn, Instagram)
+
+### Serviços e Benefícios
+
+- **benefits**: Configuração dos principais benefícios oferecidos
+  - Título e descrição da seção
+  - Lista de benefícios com título, descrição e ícone
+- **services**: Configuração dos serviços prestados
+  - Título e descrição da seção
+  - Lista de serviços com título e descrição
+
+### Regimes Tributários
+
+- **taxRegimes**: Configuração dos regimes tributários
+  - Título da seção
+  - Lista de regimes com título, descrição e detalhes
+
+### Call-to-Action (CTA)
+
+- **cta**: Configuração da seção de chamada para ação
+  - Título e descrição
+  - Texto do botão e título do modal
+
+### Exemplo de Personalização
+
+```typescript
+// src/config/configs.ts
+export const systemConfigs = {
+  company: {
+    name: "Sua Empresa",
+    description: "Sua descrição personalizada",
+    address: "Seu endereço",
+    // ...
+  },
+  contact: {
+    phone: "+55 11 1234-5678",
+    email: "contato@suaempresa.com.br",
+  },
+  // ...
+};
+```
 
 ## 📄 Licença
 
