@@ -1,9 +1,8 @@
-import { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import { compare } from "bcryptjs";
-import NextAuth from "next-auth/next";
 
 const prisma = new PrismaClient();
 
@@ -13,12 +12,12 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        email: { label: "Email", type: "email", placeholder: "seu@email.com" },
         password: { label: "Senha", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Credenciais inválidas");
+          throw new Error("Email e senha são obrigatórios");
         }
 
         const admin = await prisma.admin.findUnique({
@@ -29,19 +28,18 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Email não encontrado");
         }
 
-        const isPasswordValid = await compare(
+        const isValidPassword = await compare(
           credentials.password,
           admin.password
         );
 
-        if (!isPasswordValid) {
+        if (!isValidPassword) {
           throw new Error("Senha incorreta");
         }
 
         return {
           id: admin.id,
           email: admin.email,
-          role: admin,
         };
       },
     }),
@@ -56,13 +54,15 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        token.id = user.id;
         token.email = user.email;
       }
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) {
-        session.user.email = token.email;
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.email = token.email as string;
       }
       return session;
     },
@@ -70,4 +70,5 @@ export const authOptions: NextAuthOptions = {
 };
 
 const handler = NextAuth(authOptions);
+
 export { handler as GET, handler as POST };
