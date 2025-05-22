@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { AdminRegisterForm } from "@/components/AdminRegisterForm";
+// import { AdminRegisterForm } from "@/components/AdminRegisterForm";
 
 const formSchema = z.object({
   email: z.string().email("Email inválido"),
@@ -136,7 +136,7 @@ export default function SignIn() {
           </Form>
         </CardContent>
       </Card>
-      <AdminRegisterForm />
+      {/* <AdminRegisterForm /> */}
     </div>
   );
 }
