@@ -18,3 +18,17 @@ model Admin {
 
   @@map("admins")
 }
+
+model Lead {
+  id           String     @id @default(uuid()) @db.Uuid
+  name         String
+  email        String
+  phone        String
+  taxationType String
+  message      String
+  source       String     @default("whatsapp")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@map("leads")
+}
