@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ColumnDef } from "@tanstack/react-table";
 
 type LeadWithActions = Lead & {
   actions: React.ReactNode;
@@ -54,20 +55,18 @@ export function LeadsManagement({ leads }: LeadsManagementProps) {
     }))
   );
 
-  const columns = [
+  const columns: ColumnDef<LeadWithActions>[] = [
     {
       accessorKey: "name",
-      header: ({ column }: any) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Nome
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Nome
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
     },
     {
       accessorKey: "email",
@@ -84,27 +83,27 @@ export function LeadsManagement({ leads }: LeadsManagementProps) {
     {
       accessorKey: "source",
       header: "Origem",
-      cell: ({ row }: any) => {
-        const source = row.getValue("source");
+      cell: ({ row }) => {
+        const source = row.getValue("source") as string;
         return source === "whatsapp" ? "WhatsApp" : "Email";
       },
     },
     {
       accessorKey: "createdAt",
       header: "Data",
-      cell: ({ row }: any) => {
-        return format(new Date(row.getValue("createdAt")), "dd/MM/yyyy HH:mm", {
+      cell: ({ row }) => {
+        const date = row.getValue("createdAt") as string | Date;
+        return format(new Date(date), "dd/MM/yyyy HH:mm", {
           locale: ptBR,
         });
       },
     },
     {
       id: "actions",
-      cell: ({ row }: any) => row.original.actions,
+      cell: ({ row }) => row.original.actions,
     },
   ];
 
-  // Cálculo de estatísticas
   const totalLeads = leads.length;
   const whatsappLeads = leads.filter(
     (lead) => lead.source === "whatsapp"
