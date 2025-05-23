@@ -53,7 +53,7 @@ export const systemConfigs = {
   benefits: {
     title: "Como podemos ajudar sua empresa",
     description:
-      "Com foco em Recuperação de Créditos Tributários, oferecemos soluções estratégicas para otimizar sua gestão fiscal e aumentar seu capital de giro",
+      "A DLG identifica, corrige e recupera esses valores com inteligência fiscal, segurança jurídica e foco em resultados reais.",
     items: [
       {
         title: "Identificação de Créditos Tributários",
@@ -82,22 +82,22 @@ export const systemConfigs = {
       {
         title: "Diagnóstico Tributário Completo",
         description:
-          "Diagnóstico Tributário Completo para identificar oportunidades reais de recuperação.",
+          "Analisamos a fundo os tributos pagos pela sua empresa para descobrir valores que você pode recuperar de volta.",
       },
       {
         title: "Elaboração de Relatórios Técnicos",
         description:
-          "Elaboração de Relatórios Técnicos para facilitar processos junto ao fisco.",
+          "Transformamos dados em relatórios claros e objetivos, prontos para facilitar a sua defesa e agilizar a recuperação de valores.",
       },
       {
         title: "Gestão e Acompanhamento de Processos",
         description:
-          "Gestão e Acompanhamento de Processos administrativos e judiciais de recuperação de créditos.",
+          "Cuidamos de tudo pra você: desde o início até a conclusão da recuperação de créditos, garantindo tranquilidade e resultados.",
       },
       {
         title: "Compliance Fiscal",
         description:
-          "Compliance Fiscal para garantir conformidade com as normas vigentes.",
+          "Ajudamos sua empresa a se manter em dia com as regras do fisco, evitando riscos e garantindo mais segurança nas suas operações.",
       },
     ],
   },

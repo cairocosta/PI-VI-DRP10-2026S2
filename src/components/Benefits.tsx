@@ -23,7 +23,7 @@ export const Benefits = () => {
           {systemConfigs.benefits.title}
         </h2>
         <p className="text-xl text-zinc-300 mb-10 leading-relaxed max-w-3xl mx-auto text-center">
-          {systemConfigs.company.description}
+          {systemConfigs.benefits.description}
         </p>
         <div className="grid md:grid-cols-3 gap-8">
           {systemConfigs.benefits.items.map((benefit, index) => (
