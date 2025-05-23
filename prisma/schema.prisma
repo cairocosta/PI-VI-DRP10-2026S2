@@ -19,6 +19,12 @@ model Admin {
   @@map("admins")
 }
 
+enum LeadStatus {
+  NOVO
+  ATENDIMENTO
+  FINALIZADO
+}
+
 model Lead {
   id           String     @id @default(uuid()) @db.Uuid
   name         String
@@ -27,6 +33,7 @@ model Lead {
   taxationType String
   message      String
   source       String     @default("whatsapp")
+  status       LeadStatus @default(NOVO)
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 

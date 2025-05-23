@@ -11,21 +11,26 @@ const leadSchema = z.object({
   source: z.string().default("whatsapp"),
 });
 
-export async function POST(request: Request) {
+export async function PATCH(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const body = await request.json();
-    const data = leadSchema.parse(body);
+    const { status } = body;
+    const { id } = params;
 
-    const lead = await prisma.lead.create({
-      data,
+    if (!["NOVO", "ATENDIMENTO", "FINALIZADO"].includes(status)) {
+      return NextResponse.json({ error: "Status inválido" }, { status: 400 });
+    }
+
+    const lead = await prisma.lead.update({
+      where: { id: params.id },
+      data: { status },
     });
 
     return NextResponse.json({
-      lead: {
-        id: lead.id,
-        name: lead.name,
-        email: lead.email,
-      },
+      message: "Status atualizado com sucesso",
     });
   } catch (error) {
     if (error instanceof z.ZodError) {

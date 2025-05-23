@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, Users, BarChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { Lead } from "@prisma/client";
@@ -55,47 +55,46 @@ export function LeadsManagement({ leads }: LeadsManagementProps) {
     }))
   );
 
+  const newLeads = leads.filter((l) => l.status === "NOVO").length;
+  const inProgressLeads = leads.filter(
+    (l) => l.status === "ATENDIMENTO"
+  ).length;
+  const finishedLeads = leads.filter((l) => l.status === "FINALIZADO").length;
+  const whatsappLeads = leads.filter((l) => l.source === "WHATSAPP").length;
+  const emailLeads = leads.filter((l) => l.source === "EMAIL").length;
+
   const columns: ColumnDef<LeadWithActions>[] = [
     {
       accessorKey: "name",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Nome
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      ),
+      header: "Nome",
     },
     {
       accessorKey: "email",
-      header: "Email",
+      header: "E-mail",
     },
     {
       accessorKey: "phone",
       header: "Telefone",
     },
     {
-      accessorKey: "taxationType",
-      header: "Tipo de Tributação",
-    },
-    {
-      accessorKey: "source",
-      header: "Origem",
+      accessorKey: "status",
+      header: "Status",
       cell: ({ row }) => {
-        const source = row.getValue("source") as string;
-        return source === "whatsapp" ? "WhatsApp" : "Email";
+        const status = row.getValue("status") as string;
+        const statusMap = {
+          NOVO: "Novo",
+          ATENDIMENTO: "Em atendimento",
+          FINALIZADO: "Finalizado",
+        };
+        return statusMap[status as keyof typeof statusMap] || status;
       },
     },
     {
       accessorKey: "createdAt",
       header: "Data",
       cell: ({ row }) => {
-        const date = row.getValue("createdAt") as string | Date;
-        return format(new Date(date), "dd/MM/yyyy HH:mm", {
-          locale: ptBR,
-        });
+        const date = row.getValue("createdAt") as Date;
+        return format(date, "dd/MM/yyyy", { locale: ptBR });
       },
     },
     {
@@ -104,61 +103,71 @@ export function LeadsManagement({ leads }: LeadsManagementProps) {
     },
   ];
 
-  const totalLeads = leads.length;
-  const whatsappLeads = leads.filter(
-    (lead) => lead.source === "whatsapp"
-  ).length;
-  const emailLeads = leads.filter((lead) => lead.source === "email").length;
-  const conversionRate =
-    totalLeads > 0 ? (whatsappLeads / totalLeads) * 100 : 0;
-
   return (
-    <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader>
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card className="shadow-md rounded-lg">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">
-              Total de Leads
+              Status de Leads
             </CardTitle>
+            <Users className="h-4 w-4 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{totalLeads}</p>
+            <div className="grid grid-cols-3 gap-4 p-2">
+              <div className="text-center">
+                <p className="text-xs text-gray-500 font-medium">Novos</p>
+                <p className="text-2xl font-bold text-blue-600">{newLeads}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-xs text-gray-500 font-medium">
+                  Em atendimento
+                </p>
+                <p className="text-2xl font-bold text-yellow-600">
+                  {inProgressLeads}
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-xs text-gray-500 font-medium">Finalizados</p>
+                <p className="text-2xl font-bold text-green-600">
+                  {finishedLeads}
+                </p>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="shadow-md rounded-lg">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">
-              Leads WhatsApp
+              Fonte de Leads
             </CardTitle>
+            <BarChart className="h-4 w-4 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{whatsappLeads}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-medium">Leads Email</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{emailLeads}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-medium">
-              Taxa de Conversão WhatsApp
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{conversionRate.toFixed(1)}%</p>
+            <div className="grid grid-cols-2 gap-4 p-2">
+              <div className="text-center">
+                <p className="text-xs text-gray-500 font-medium">WhatsApp</p>
+                <p className="text-2xl font-bold text-green-600">
+                  {whatsappLeads}
+                </p>
+                <p className="text-xs text-gray-400">
+                  {Math.round((whatsappLeads / leads.length) * 100)}% do total
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-xs text-gray-500 font-medium">E-mail</p>
+                <p className="text-2xl font-bold text-blue-600">{emailLeads}</p>
+                <p className="text-xs text-gray-400">
+                  {Math.round((emailLeads / leads.length) * 100)}% do total
+                </p>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
 
-      <DataTable columns={columns} data={filteredLeads} searchKey="name" />
+      <DataTable columns={columns} data={filteredLeads} />
     </div>
   );
 }
