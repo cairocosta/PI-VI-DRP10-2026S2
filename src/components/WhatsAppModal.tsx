@@ -43,7 +43,7 @@ export function WhatsAppModal() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleTaxationTypeChange: any = (value: TaxationType) => {
+  const handleTaxationTypeChange = (value: TaxationType) => {
     setFormData((prev) => ({ ...prev, taxationType: value }));
   };
 
@@ -64,7 +64,6 @@ export function WhatsAppModal() {
     setIsSubmitting(true);
 
     try {
-      // Salva o lead no banco de dados
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: {
@@ -85,7 +84,6 @@ export function WhatsAppModal() {
         throw new Error(errorData.error || "Erro ao salvar o lead.");
       }
 
-      // Formata a mensagem para o WhatsApp
       const message = `Olá! Me chamo ${
         formData.name
       }\n\n*Dados para Contato:*\nE-mail: ${formData.email}\nTelefone: ${
@@ -93,13 +91,12 @@ export function WhatsAppModal() {
       }\n\n*Tipo de Atendimento:*\n${getTaxationTypeLabel(
         formData.taxationType!
       )}\n\n*Mensagem:*\n${formData.message}`;
+
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `${systemConfigs.social.whatsapp}?text=${encodedMessage}`;
 
-      // Abre o WhatsApp em uma nova aba
       window.open(whatsappUrl, "_blank");
 
-      // Limpa o formulário e fecha o modal
       setIsOpen(false);
       setFormData({ taxationType: undefined });
     } catch (error) {
@@ -113,7 +110,7 @@ export function WhatsAppModal() {
   };
 
   const getTaxationTypeLabel = (type: TaxationType): string => {
-    const labels = {
+    const labels: Record<TaxationType, string> = {
       simples: "Simples Nacional",
       presumido: "Lucro Presumido",
       real: "Lucro Real",
@@ -195,9 +192,9 @@ export function WhatsAppModal() {
                 <SelectValue placeholder="Selecione o tipo de atendimento" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="simples" className="hover:bg-slate-100 cursor-pointer">Simples Nacional</SelectItem>
-                <SelectItem value="presumido" className="hover:bg-slate-100 cursor-pointer">Lucro Presumido</SelectItem>
-                <SelectItem value="real" className="hover:bg-slate-100 cursor-pointer">Lucro Real</SelectItem>
+                <SelectItem value="simples">Simples Nacional</SelectItem>
+                <SelectItem value="presumido">Lucro Presumido</SelectItem>
+                <SelectItem value="real">Lucro Real</SelectItem>
               </SelectContent>
             </Select>
           </div>
