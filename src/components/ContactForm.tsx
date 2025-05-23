@@ -2,9 +2,13 @@
 
 import * as React from "react";
 import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { generateEmailTemplate } from "../templates/emailTemplate";
-import { generateConfirmationEmailTemplate } from "../templates/confirmationEmailTemplate";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 import {
   Select,
   SelectContent,
@@ -12,6 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { Mail } from "lucide-react";
+import { generateEmailTemplate } from "../templates/emailTemplate";
+import { generateConfirmationEmailTemplate } from "../templates/confirmationEmailTemplate";
 
 type TaxationType = "simples" | "presumido" | "real";
 
@@ -25,7 +32,7 @@ type FormData = {
 
 export function ContactForm() {
   const [formData, setFormData] = React.useState<Partial<FormData>>({
-    taxationType: "simples",
+    taxationType: undefined,
   });
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -40,21 +47,21 @@ export function ContactForm() {
     setFormData((prev) => ({ ...prev, taxationType: value }));
   };
 
+  const isFormValid = () => {
+    return (
+      formData.name?.trim() &&
+      formData.email?.trim() &&
+      formData.phone?.trim() &&
+      formData.taxationType &&
+      formData.message?.trim()
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Formulário enviado!");
-    setIsSubmitting(true);
+    if (!isFormValid()) return;
 
-    if (
-      !formData.name?.trim() ||
-      !formData.email?.trim() ||
-      !formData.phone?.trim() ||
-      !formData.taxationType ||
-      !formData.message?.trim()
-    ) {
-      alert("Por favor, preencha todos os campos.");
-      return;
-    }
+    setIsSubmitting(true);
 
     try {
       // Salva o lead no banco de dados
@@ -80,18 +87,18 @@ export function ContactForm() {
 
       // Gera os templates dos emails (principal e confirmação)
       const emailData = generateEmailTemplate({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-        taxationType: formData.taxationType,
+        name: formData.name!,
+        email: formData.email!,
+        phone: formData.phone!,
+        message: formData.message!,
+        taxationType: formData.taxationType!,
       });
       const confirmationEmailData = generateConfirmationEmailTemplate({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-        taxationType: formData.taxationType,
+        name: formData.name!,
+        email: formData.email!,
+        phone: formData.phone!,
+        message: formData.message!,
+        taxationType: formData.taxationType!,
       });
 
       // Combina os dados dos dois emails
@@ -100,8 +107,6 @@ export function ContactForm() {
         confirmationText: confirmationEmailData.text,
         confirmationHtml: confirmationEmailData.html,
       };
-
-      console.log("Dados do email a serem enviados:", combinedEmailData);
 
       // Envia os dados para a rota API
       const response = await fetch("/api/send-email", {
@@ -116,137 +121,134 @@ export function ContactForm() {
       const responseData = await response.json();
 
       if (!response.ok) {
-        console.error("Resposta da API com erro:", responseData);
         throw new Error(responseData.error || "Erro ao enviar o email.");
       }
 
-      console.log("Resposta de sucesso da API:", responseData);
+      // Limpa o formulário e fecha o modal
 
-      // Exibe uma mensagem de sucesso
-      alert("Mensagem enviada com sucesso!");
+      setFormData({ taxationType: undefined });
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Erro desconhecido";
-      console.error("Erro ao enviar o formulário:", error);
-      console.error("Mensagem de erro:", errorMessage);
+      console.error("Erro ao processar o formulário:", error);
       alert(
-        `Ocorreu um erro ao enviar sua mensagem: ${errorMessage}. Por favor, tente novamente.`
+        "Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente."
       );
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const getTaxationTypeLabel = (type: TaxationType): string => {
+    const labels = {
+      simples: "Simples Nacional",
+      presumido: "Lucro Presumido",
+      real: "Lucro Real",
+    };
+    return labels[type];
+  };
+
   return (
-    <Card className="w-full border-none shadow-none">
-      <CardHeader>
-        <CardTitle className="text-2xl text-center text-[#c6a355]">
-          Entre em Contato
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium">
-              Nome
-            </label>
-            <input
-              id="name"
-              name="name" // Adicionado o atributo `name`
-              type="text"
-              required
-              value={formData.name || ""}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent"
-              placeholder="Seu nome completo"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">
-              E-mail
-            </label>
-            <input
-              id="email"
-              name="email" // Adicionado o atributo `name`
-              type="email"
-              required
-              value={formData.email || ""}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent"
-              placeholder="seu@email.com"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="phone" className="text-sm font-medium">
-              Telefone
-            </label>
-            <input
-              id="phone"
-              name="phone" // Adicionado o atributo `name`
-              type="tel"
-              required
-              value={formData.phone || ""}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent"
-              placeholder="(00) 00000-0000"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="taxationType" className="text-sm font-medium">
-              Tipo de Atendimento
-            </label>
-            <Select
-              value={formData.taxationType}
-              onValueChange={handleTaxationTypeChange}
-            >
-              <SelectTrigger className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent">
-                <SelectValue placeholder="Selecione o tipo de atendimento" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem
-                  value="simples"
-                  className="hover:bg-slate-100 cursor-pointer"
-                >
-                  Simples Nacional
-                </SelectItem>
-                <SelectItem
-                  value="presumido"
-                  className="hover:bg-slate-100 cursor-pointer"
-                >
-                  Lucro Presumido
-                </SelectItem>
-                <SelectItem
-                  value="real"
-                  className="hover:bg-slate-100 cursor-pointer"
-                >
-                  Lucro Real
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="message" className="text-sm font-medium">
-              Mensagem
-            </label>
-            <textarea
-              id="message"
-              name="message" // Adicionado o atributo `name`
-              required
-              value={formData.message || ""}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent min-h-[100px]"
-              placeholder="Como podemos ajudar?"
-            />
-          </div>
-          <Button
-            type="submit"
-            className="w-full bg-[#c6a355] hover:bg-[#b89142] text-slate-900 font-semibold"
-            disabled={isSubmitting}
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-2">
+          <label htmlFor="name" className="text-sm font-medium">
+            Nome
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            value={formData.name || ""}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent"
+            placeholder="Seu nome completo"
+          />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="email" className="text-sm font-medium">
+            E-mail
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            value={formData.email || ""}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent"
+            placeholder="seu@email.com"
+          />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="phone" className="text-sm font-medium">
+            Telefone
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            required
+            value={formData.phone || ""}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent"
+            placeholder="(00) 00000-0000"
+          />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="taxationType" className="text-sm font-medium">
+            Tipo de Atendimento
+          </label>
+          <Select
+            value={formData.taxationType}
+            onValueChange={handleTaxationTypeChange}
           >
-            {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+            <SelectTrigger className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent">
+              <SelectValue placeholder="Selecione o tipo de atendimento" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem
+                value="simples"
+                className="hover:bg-slate-100 cursor-pointer"
+              >
+                Simples Nacional
+              </SelectItem>
+              <SelectItem
+                value="presumido"
+                className="hover:bg-slate-100 cursor-pointer"
+              >
+                Lucro Presumido
+              </SelectItem>
+              <SelectItem
+                value="real"
+                className="hover:bg-slate-100 cursor-pointer"
+              >
+                Lucro Real
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="message" className="text-sm font-medium">
+            Mensagem
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            value={formData.message || ""}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#c6a355] focus:border-transparent min-h-[100px]"
+            placeholder="Como podemos ajudar?"
+          />
+        </div>
+        <Button
+          type="submit"
+          className="w-full bg-[#c6a355] hover:bg-[#b89142] text-slate-900 font-semibold"
+          disabled={!isFormValid() || isSubmitting}
+        >
+          {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
+        </Button>
+      </form>
+    </div>
   );
 }

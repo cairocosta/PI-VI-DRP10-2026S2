@@ -39,6 +39,10 @@ export const Hero = () => {
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
+              <DialogTitle className=""></DialogTitle>
+              <DialogTitle className="text-2xl text-center text-[#c6a355]">
+                Fale Conosco por E-Mail
+              </DialogTitle>
               <ContactForm />
             </DialogContent>
           </Dialog>
