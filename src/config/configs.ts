@@ -1,4 +1,13 @@
 export const systemConfigs = {
+  company: {
+    name: "Consultoria Tributária Especialista em Recuperação de Créditos Tributários",
+    description:
+      "Potencialize a saúde financeira da sua empresa recuperando tributos pagos indevidamente, com segurança e expertise comprovada.",
+    address: "Seu endereço aqui",
+    city: "Morro Agudo",
+    state: "SP",
+    country: "Brasil",
+  },
   about: {
     title: "Sobre a DLG Consultoria Tributária",
     description:
@@ -32,15 +41,7 @@ export const systemConfigs = {
       },
     ],
   },
-  company: {
-    name: "Consultoria Tributária Especialista em Recuperação de Créditos Tributários",
-    description:
-      "Potencialize a saúde financeira da sua empresa recuperando tributos pagos indevidamente, com segurança e expertise comprovada.",
-    address: "Seu endereço aqui",
-    city: "Morro Agudo",
-    state: "SP",
-    country: "Brasil",
-  },
+
   contact: {
     phone: "+55 16 98123-7871",
     email: "contato@dlgconsultoria.com.br",
