@@ -25,11 +25,14 @@ export const Cta = () => {
               size="lg"
               className="gap-2 bg-[#c6a355] hover:bg-[#b89142] text-slate-900 font-semibold shadow-lg transition-all duration-300 hover:scale-105"
             >
-              {systemConfigs.cta.buttonText} <ArrowRight className="w-4 h-4" />
+              Agende uma consulta gratuita <ArrowRight className="w-4 h-4" />
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
-            <DialogTitle>{systemConfigs.cta.modalTitle}</DialogTitle>
+            <DialogTitle className=""></DialogTitle>
+            <DialogTitle className="text-2xl text-center text-[#c6a355]">
+              Fale Conosco por E-Mail
+            </DialogTitle>
             <ContactForm onClose={() => setIsContactModalOpen(false)} />
           </DialogContent>
         </Dialog>
