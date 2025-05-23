@@ -60,8 +60,12 @@ export function LeadsManagement({ leads }: LeadsManagementProps) {
     (l) => l.status === "ATENDIMENTO"
   ).length;
   const finishedLeads = leads.filter((l) => l.status === "FINALIZADO").length;
-  const whatsappLeads = leads.filter((l) => l.source === "WHATSAPP").length;
-  const emailLeads = leads.filter((l) => l.source === "EMAIL").length;
+  const whatsappLeads = leads.filter(
+    (l) => l.source && l.source.toUpperCase() === "WHATSAPP"
+  ).length;
+  const emailLeads = leads.filter(
+    (l) => l.source && l.source.toUpperCase() === "EMAIL"
+  ).length;
 
   const columns: ColumnDef<LeadWithActions>[] = [
     {
