@@ -5,7 +5,14 @@ export function generateConfirmationEmailTemplate({
   email,
   phone,
   message,
+  taxationType,
 }: EmailTemplateProps) {
+  const taxationTypeLabels = {
+    simples: "Simples Nacional",
+    presumido: "Lucro Presumido",
+    real: "Lucro Real",
+  };
+
   return {
     to: email,
     from: process.env.GMAIL_USER || "",
@@ -18,6 +25,7 @@ Detalhes da sua mensagem:
 Nome: ${name}
 Email: ${email}
 Telefone: ${phone}
+Tipo de Atendimento: ${taxationTypeLabels[taxationType]}
 Mensagem: ${message}
 
 Atenciosamente,
@@ -37,6 +45,9 @@ Equipe de Consultoria Tributária Especializada`,
             <p style="margin: 10px 0 0; color: #555;"><strong>Nome:</strong> ${name}</p>
             <p style="margin: 5px 0 0; color: #555;"><strong>Email:</strong> ${email}</p>
             <p style="margin: 5px 0 0; color: #555;"><strong>Telefone:</strong> ${phone}</p>
+            <p style="margin: 5px 0 0; color: #555;"><strong>Tipo de Atendimento:</strong> ${
+              taxationTypeLabels[taxationType]
+            }</p>
             <p style="margin: 5px 0 0; color: #555;"><strong>Mensagem:</strong></p>
             <p style="margin: 5px 0 0; color: #555; white-space: pre-line;">${message}</p>
           </div>

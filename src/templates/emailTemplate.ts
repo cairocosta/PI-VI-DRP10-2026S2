@@ -3,6 +3,7 @@ export interface EmailTemplateProps {
   email: string;
   phone: string;
   message: string;
+  taxationType: "simples" | "presumido" | "real";
 }
 
 export function generateEmailTemplate({
@@ -10,13 +11,20 @@ export function generateEmailTemplate({
   email,
   phone,
   message,
+  taxationType,
 }: EmailTemplateProps) {
+  const taxationTypeLabels = {
+    simples: "Simples Nacional",
+    presumido: "Lucro Presumido",
+    real: "Lucro Real",
+  };
+
   return {
     to: email,
     from: email,
     replyTo: email,
     subject: `${name} : ${email}`,
-    text: `Nome: ${name}\nEmail: ${email}\nTelefone: ${phone}\nMensagem: ${message}`,
+    text: `Nome: ${name}\nEmail: ${email}\nTelefone: ${phone}\nTipo de Atendimento: ${taxationTypeLabels[taxationType]}\nMensagem: ${message}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 5px;">
         <div style="text-align: center; margin-bottom: 20px; padding: 20px; background-color: #f8f8f8; border-radius: 5px 5px 0 0;">
@@ -26,6 +34,9 @@ export function generateEmailTemplate({
           <p style="margin-bottom: 15px;"><strong style="color: #333;">Nome:</strong> ${name}</p>
           <p style="margin-bottom: 15px;"><strong style="color: #333;">Email:</strong> <a href="mailto:${email}" style="color: #c6a355; text-decoration: none;">${email}</a></p>
           <p style="margin-bottom: 15px;"><strong style="color: #333;">Telefone:</strong> ${phone}</p>
+          <p style="margin-bottom: 15px;"><strong style="color: #333;">Tipo de Atendimento:</strong> ${
+            taxationTypeLabels[taxationType]
+          }</p>
           <div style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #c6a355; margin-bottom: 20px;">
             <p style="margin: 0; color: #555;"><strong style="color: #333;">Mensagem:</strong></p>
             <p style="margin: 10px 0 0; color: #555; white-space: pre-line;">${message}</p>
