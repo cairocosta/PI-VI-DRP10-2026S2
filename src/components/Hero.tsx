@@ -43,7 +43,7 @@ export const Hero = () => {
               <DialogTitle className="text-2xl text-center text-[#c6a355]">
                 Fale Conosco por E-Mail
               </DialogTitle>
-              <ContactForm />
+              <ContactForm onClose={() => setIsContactModalOpen(false)} />
             </DialogContent>
           </Dialog>
         </div>

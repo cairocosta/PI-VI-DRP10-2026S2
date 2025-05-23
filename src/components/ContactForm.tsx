@@ -19,6 +19,7 @@ import {
 import { Mail } from "lucide-react";
 import { generateEmailTemplate } from "../templates/emailTemplate";
 import { generateConfirmationEmailTemplate } from "../templates/confirmationEmailTemplate";
+import { useToast } from "@/hooks/use-toast";
 
 type TaxationType = "simples" | "presumido" | "real";
 
@@ -30,7 +31,8 @@ type FormData = {
   message: string;
 };
 
-export function ContactForm() {
+export function ContactForm({ onClose }: { onClose?: () => void }) {
+  const { toast } = useToast();
   const [formData, setFormData] = React.useState<Partial<FormData>>({
     taxationType: undefined,
   });
@@ -124,9 +126,14 @@ export function ContactForm() {
         throw new Error(responseData.error || "Erro ao enviar o email.");
       }
 
-      // Limpa o formulário e fecha o modal
-
+      // Limpa o formulário, mostra mensagem de sucesso e fecha o modal
       setFormData({ taxationType: undefined });
+      toast({
+        title: "Sucesso!",
+        description: "Sua mensagem foi enviada com sucesso.",
+        variant: "default",
+      });
+      if (onClose) onClose();
     } catch (error) {
       console.error("Erro ao processar o formulário:", error);
       alert(

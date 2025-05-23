@@ -30,7 +30,7 @@ export const Cta = () => {
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogTitle>{systemConfigs.cta.modalTitle}</DialogTitle>
-            <ContactForm />
+            <ContactForm onClose={() => setIsContactModalOpen(false)} />
           </DialogContent>
         </Dialog>
       </div>
