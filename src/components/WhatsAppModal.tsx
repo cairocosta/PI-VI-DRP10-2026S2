@@ -43,7 +43,7 @@ export function WhatsAppModal() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleTaxationTypeChange: any = (value: TaxationType) => {
+  const handleTaxationTypeChange = (value: TaxationType) => {
     setFormData((prev) => ({ ...prev, taxationType: value }));
   };
 
@@ -64,12 +64,9 @@ export function WhatsAppModal() {
     setIsSubmitting(true);
 
     try {
-      // Salva o lead no banco de dados
       const response = await fetch("/api/leads", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
@@ -85,21 +82,23 @@ export function WhatsAppModal() {
         throw new Error(errorData.error || "Erro ao salvar o lead.");
       }
 
-      // Formata a mensagem para o WhatsApp
-      const message = `Olá! Me chamo ${
-        formData.name
-      }\n\n*Dados para Contato:*\nE-mail: ${formData.email}\nTelefone: ${
-        formData.phone
-      }\n\n*Tipo de Atendimento:*\n${getTaxationTypeLabel(
-        formData.taxationType!
-      )}\n\n*Mensagem:*\n${formData.message}`;
+      const message = `Olá! Me chamo ${formData.name}
+      
+*Dados para Contato:*
+E-mail: ${formData.email}
+Telefone: ${formData.phone}
+
+*Tipo de Atendimento:*
+${getTaxationTypeLabel(formData.taxationType!)}
+
+*Mensagem:*
+${formData.message}`;
+
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `${systemConfigs.social.whatsapp}?text=${encodedMessage}`;
 
-      // Abre o WhatsApp em uma nova aba
       window.open(whatsappUrl, "_blank");
 
-      // Limpa o formulário e fecha o modal
       setIsOpen(false);
       setFormData({ taxationType: undefined });
     } catch (error) {
@@ -113,7 +112,7 @@ export function WhatsAppModal() {
   };
 
   const getTaxationTypeLabel = (type: TaxationType): string => {
-    const labels = {
+    const labels: Record<TaxationType, string> = {
       simples: "Simples Nacional",
       presumido: "Lucro Presumido",
       real: "Lucro Real",
