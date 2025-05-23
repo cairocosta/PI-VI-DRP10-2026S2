@@ -8,7 +8,7 @@ const statusSchema = z.enum(["NOVO", "ATENDIMENTO", "FINALIZADO"]);
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     const { id } = params;
     const body = await request.json();
