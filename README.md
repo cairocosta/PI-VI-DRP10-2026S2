@@ -22,7 +22,9 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 
 - [PostgreSQL](https://www.postgresql.org/) - Banco de dados relacional
 - [Prisma ORM](https://www.prisma.io/) - ORM para acesso ao banco de dados (versão 6.6.0)
-- [Docker](https://www.docker.com/) - Containerização para o banco de dados
+  - Modelo `Admin` para gerenciamento de usuários administrativos
+  - Modelo `Lead` para captura e gestão de leads
+- [Docker](https://www.docker.com/) - Containerização para o banco de dados (localhost)
 - [Nodemailer](https://nodemailer.com/) - Biblioteca para envio de emails (versão 7.0.3)
 
 ## 🗂️ Estrutura do Projeto
@@ -188,16 +190,33 @@ Este é um site moderno para uma consultoria tributária especializada, desenvol
 
 - **Página Inicial:** Apresentação da empresa e seus serviços de consultoria tributária
 - **Seção Sobre:** Informações detalhadas sobre a empresa e sua missão
-- **Seção de Benefícios:** Destaque para os principais benefícios oferecidos (Redução de Impostos, Prevenção de Riscos, Gestão Financeira)
-- **Seção de Serviços:** Apresentação dos serviços oferecidos (Planejamento Tributário, Consultoria Fiscal, Recuperação de Impostos, Compliance Fiscal)
-- **Seção de Regimes Tributários:** Explicação sobre os diferentes regimes tributários disponíveis
-- **Formulário de Contato:** Interface para que potenciais clientes possam entrar em contato
-- **Sistema de Email Duplo:**
-  - Email de notificação para a empresa com os dados do contato
+- **Seção de Benefícios:** Destaque para os principais benefícios oferecidos
+  - Identificação de Créditos Tributários
+  - Planejamento Tributário Personalizado
+  - Consultoria Fiscal Especializada
+- **Seção de Serviços:** Apresentação dos serviços especializados
+  - Diagnóstico Tributário Completo
+  - Elaboração de Relatórios Técnicos
+  - Gestão e Acompanhamento de Processos
+  - Compliance Fiscal
+- **Seção de Regimes Tributários:** Explicação detalhada sobre
+  - Simples Nacional
+  - Lucro Presumido
+  - Lucro Real
+- **Sistema de Contato Integrado:**
+  - Formulário de contato com validação
+  - Captura e armazenamento de leads no banco de dados
+  - Sistema de notificações toast para feedback
+  - Email de notificação para a empresa
   - Email de confirmação automático para o cliente
   - Templates de email personalizados e responsivos
-- **Botão WhatsApp Flutuante:** Acesso rápido para contato via WhatsApp
-- **Design Responsivo:** Interface adaptável para dispositivos móveis e desktop
+- **Botão WhatsApp Flutuante:**
+  - Acesso rápido para contato via WhatsApp
+  - Modal de confirmação com feedback visual
+- **Design Responsivo:**
+  - Interface adaptável para dispositivos móveis e desktop
+  - Componentes UI acessíveis com Radix UI
+  - Estilização moderna com Tailwind CSS
 - **Componentes Reutilizáveis:** Utilização de componentes modulares para facilitar a manutenção
 
 ## � Personalização
@@ -215,7 +234,12 @@ Os componentes de interface do usuário estão localizados em `src/components/ui
 
 ### Banco de Dados
 
-O schema do banco de dados está definido em `prisma/schema.prisma`. O projeto está configurado para usar PostgreSQL via Docker, mas o schema ainda não contém modelos definidos. Para adicionar novos modelos, edite este arquivo e execute as migrações do Prisma.
+O schema do banco de dados está definido em `prisma/schema.prisma`. O projeto está configurado para usar PostgreSQL via Docker e inclui os seguintes modelos:
+
+- **Admin**: Gerenciamento de usuários administrativos
+  - Campos: id, email, password, isActive, createdAt, updatedAt
+- **Lead**: Captura e gestão de leads
+  - Campos: id, name, email, phone, taxationType, message, source, createdAt, updatedAt
 
 ## ⚙️ Configurações do Sistema
 
