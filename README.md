@@ -291,7 +291,3 @@ export const systemConfigs = {
   // ...
 };
 ```
-
-## 📄 Licença
-
-Este projeto está licenciado sob a [Licença MIT](LICENSE).

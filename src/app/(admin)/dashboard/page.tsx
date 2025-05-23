@@ -95,7 +95,7 @@ const DashboardPage = () => {
                 {isSidebarOpen && <span>Dashboard</span>}
               </Button>
             </li>
-            <li>
+            {/* <li>
               <Button
                 variant="ghost"
                 className={`w-full justify-start gap-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 ${
@@ -128,7 +128,7 @@ const DashboardPage = () => {
                 <Settings className="h-5 w-5" />
                 {isSidebarOpen && <span>Configurações</span>}
               </Button>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </aside>
@@ -147,14 +147,14 @@ const DashboardPage = () => {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <Button
+            {/* <Button
               variant="ghost"
               size="icon"
               className="relative text-gray-600 hover:text-gray-900 hover:bg-gray-100"
             >
               <Bell className="h-5 w-5" />
               <span className="absolute top-0 right-0 h-2 w-2 bg-blue-600 rounded-full"></span>
-            </Button>
+            </Button> */}
             <Button
               onClick={handleLogout}
               variant="outline"

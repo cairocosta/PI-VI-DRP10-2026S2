@@ -70,7 +70,7 @@ export const systemConfigs = {
       {
         title: "Consultoria Fiscal Especializada",
         description:
-          "Suporte completo em processos administrativos e judiciais.",
+          "Gesttão estratégica e preventiva para otimização tributária e blindagem fiscal com excelência.",
         icon: "Shield",
       },
     ],
